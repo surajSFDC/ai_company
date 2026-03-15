@@ -1,17 +1,41 @@
-## AI Company
+# 🤖 AI Company - Your AI-Powered Development Team
 
-This repository contains the source code and resources for the `ai_company` project.
+Welcome to your AI company! This is a system where you (the CEO) manage a team of AI agents
+to build software, research topics, and handle various development tasks.
 
-### Getting Started
+## 🌟 Features
 
-- **Prerequisites**: Ensure you have a recent version of Node.js or Python installed (depending on the actual stack you use here).
-- **Install dependencies**: See the relevant package/dependency file in this repo once it exists.
+- **Specialized Agents**: Coder, Reviewer, Tester, Researcher, DevOps, Docs, Architect, QA
+- **Parallel Execution**: Run multiple tasks simultaneously
+- **Human-in-the-Loop**: Approve/reject at key checkpoints
+- **Persistent Memory**: Vector-based memory for learning from past tasks
+- **Web Research**: Agents can search the web for information
 
-### Development
+## 🚀 Quick Start
 
-- **Branch**: Work happens on `main` by default.
-- **Commits**: Use clear, descriptive commit messages explaining the purpose of each change.
+```bash
+# Install dependencies
+pip install -r requirements.txt
 
-### License
+# Copy and configure environment
+cp .env.example .env
+# Edit .env and add your OPENAI_API_KEY
 
-Specify your license here (e.g., MIT, Apache-2.0).
+# Run the demo
+python main.py
+```
+
+## 📁 Project Structure
+
+```text
+ai_company/
+├── agents/          # All AI agents
+├── tools/           # Tools (file ops, executor, browser)
+├── memory/          # Memory systems
+├── orchestrator/    # Task queue, approval queue, manager
+├── workspace/       # Generated outputs
+├── config.py        # Agent configuration
+├── main.py          # Entry point
+├── requirements.txt
+└── .env.example
+```
