@@ -20,7 +20,7 @@ Documentation principles:
 class DocsAgent(BaseAgent):
     """Agent responsible for writing documentation."""
 
-    def __init__(self, model_name: str = "gpt-4o", temperature: float = 0.4):
+    def __init__(self, model_name: str = "llama3.2", temperature: float = 0.4):
         super().__init__(
             name="Docs",
             role="Technical Writer",

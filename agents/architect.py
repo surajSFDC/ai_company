@@ -24,7 +24,7 @@ Output: Architecture diagrams (Mermaid), component descriptions, recommendations
 class ArchitectAgent(BaseAgent):
     """Agent responsible for system architecture."""
 
-    def __init__(self, model_name: str = "gpt-4o", temperature: float = 0.4):
+    def __init__(self, model_name: str = "llama3.2", temperature: float = 0.4):
         super().__init__(
             name="Architect",
             role="System Architect",

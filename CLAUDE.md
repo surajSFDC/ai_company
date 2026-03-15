@@ -8,14 +8,21 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 # Install dependencies
 pip install -r requirements.txt
 
-# Run the main orchestrator
+# Run the Virtual Office dashboard (default)
 python main.py
+
+# Run the main orchestrator (CLI mode)
+python main.py --cli  # or modify main.py to call main() directly
 
 # Run tests
 python dev/test_agents.py
 
 # Debug/test individual agents
 python dev/debug_tools.py
+
+# Virtual Office options
+python main.py --port 8080    # Custom port
+python main.py --host 0.0.0.0 # Bind to all interfaces
 ```
 
 ## Architecture Overview
@@ -29,6 +36,12 @@ This is a multi-agent AI system where specialized agents collaborate to complete
 - Manages a 6-step pipeline for full-stack tasks: Code → Review → Test → QA → DevOps → Docs
 - Handles parallel task execution via `TaskQueue` (thread pool with configurable workers)
 - Manages approval workflows and persistent memory
+
+**Virtual Office** (`office/server.py`) - Real-time dashboard:
+- FastAPI server with WebSocket for live updates
+- Visual office view showing each agent's status, current task, and messages
+- Activity feed showing inter-agent communication and handoffs
+- Task submission form for assigning new work
 
 **Agents** (`agents/`) - Specialized agents built on `BaseAgent`:
 - `CoderAgent` - Writes production code

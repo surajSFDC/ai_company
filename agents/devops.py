@@ -25,7 +25,7 @@ Output: Complete, production-ready configurations"""
 class DevOpsAgent(BaseAgent):
     """Agent responsible for DevOps tasks."""
 
-    def __init__(self, model_name: str = "gpt-4o", temperature: float = 0.3):
+    def __init__(self, model_name: str = "llama3.2", temperature: float = 0.3):
         super().__init__(
             name="DevOps",
             role="DevOps Engineer",

@@ -29,7 +29,7 @@ Output format:
 class CoderAgent(BaseAgent):
     """Agent responsible for writing code."""
 
-    def __init__(self, model_name: str = "gpt-4o", temperature: float = 0.4):
+    def __init__(self, model_name: str = "llama3.2", temperature: float = 0.4):
         super().__init__(
             name="Coder",
             role="Senior Software Engineer",

@@ -31,7 +31,7 @@ class ManagerAgent:
 
     def __init__(
         self,
-        model_name: str = "gpt-4o",
+        model_name: str = "llama3.2",
         workspace_dir: str = "./workspace",
         auto_execute: bool = False,
         enable_web_research: bool = True,
@@ -97,7 +97,7 @@ class ManagerAgent:
         full_context["memory_context"] = memory_context
 
         print(f"\n{'='*60}")
-        print(f"🚀 Starting task: {task}")
+        print(f"[START] Starting task: {task}")
         print(f"{'='*60}\n")
 
         state = self._route_task(task, full_context)
@@ -116,7 +116,7 @@ class ManagerAgent:
         """Process multiple tasks in parallel."""
 
         print(f"\n{'='*60}")
-        print(f"🚀 Starting {len(tasks)} tasks in parallel")
+        print(f"[START] Starting {len(tasks)} tasks in parallel")
         print(f"{'='*60}\n")
 
         task_ids: List[str] = []
@@ -241,45 +241,45 @@ class ManagerAgent:
         state = AgentState(task=task, context=context, status="started")
 
         # Generate code
-        print("📝 Step 1: Generating code...")
+        print("[STEP 1] Generating code...")
         state = self.coder.process(state)
 
         if state.status == "failed":
             return state
 
         # Code review
-        print("\n🔍 Step 2: Reviewing code...")
+        print("\n[STEP 2] Reviewing code...")
         state = self.reviewer.process(state)
 
         if state.status == "needs_revision":
-            print("\n🔧 Handling revisions...")
+            print("\n[REVISION] Handling revisions...")
             state = self._handle_revision(state)
 
         if state.status == "approved":
             # Generate tests
-            print("\n🧪 Step 3: Generating tests...")
+            print("\n[STEP 3] Generating tests...")
             state = self.tester.process(state)
 
             # QA
-            print("\n✅ Step 4: Running QA...")
+            print("\n[STEP 4] Running QA...")
             state.context["code"] = state.artifacts.get("code", "")
             state.context["tests"] = state.artifacts.get("tests", "")
             state = self.qa.process(state)
 
             # DevOps
-            print("\n⚙️ Step 5: Creating DevOps artifacts...")
+            print("\n[STEP 5] Creating DevOps artifacts...")
             state.context["project_type"] = self._detect_project_type(
                 state.artifacts.get("code", "")
             )
             state = self.devops.process(state)
 
             # Documentation
-            print("\n📝 Step 6: Writing documentation...")
+            print("\n[STEP 6] Writing documentation...")
             state = self.docs.process(state)
 
             # Execute tests
             if self.auto_execute:
-                print("\n⚡ Step 7: Running tests...")
+                print("\n[STEP 7] Running tests...")
                 state = self._execute_tests(state)
 
         state.status = "completed"
@@ -295,7 +295,7 @@ class ManagerAgent:
     def _handle_research(self, task: str, context: Dict[str, Any]) -> AgentState:
         """Handle research task."""
         state = AgentState(task=task, context=context, status="started")
-        print("🔎 Running research agent...")
+        print("[RESEARCH] Running research agent...")
         state = self.researcher.process(state)
         state.status = "completed"
         self._save_artifacts(state, "research")
@@ -304,7 +304,7 @@ class ManagerAgent:
     def _handle_architecture(self, task: str, context: Dict[str, Any]) -> AgentState:
         """Handle architecture task."""
         state = AgentState(task=task, context=context, status="started")
-        print("🏗️ Running architecture agent...")
+        print("[ARCHITECTURE] Running architecture agent...")
         state = self.architect.process(state)
         state.status = "completed"
         self._save_artifacts(state, "architecture")
@@ -313,7 +313,7 @@ class ManagerAgent:
     def _handle_devops(self, task: str, context: Dict[str, Any]) -> AgentState:
         """Handle DevOps task."""
         state = AgentState(task=task, context=context, status="started")
-        print("⚙️ Running DevOps agent...")
+        print("[DEVOPS] Running DevOps agent...")
         state = self.devops.process(state)
         state.status = "completed"
         self._save_artifacts(state, "devops")
@@ -322,7 +322,7 @@ class ManagerAgent:
     def _handle_documentation(self, task: str, context: Dict[str, Any]) -> AgentState:
         """Handle documentation task."""
         state = AgentState(task=task, context=context, status="started")
-        print("📝 Running documentation agent...")
+        print("[DOCS] Running documentation agent...")
         state = self.docs.process(state)
         state.status = "completed"
         self._save_artifacts(state, "docs")
@@ -389,7 +389,7 @@ class ManagerAgent:
     def _on_approval_callback(self, request) -> None:
         """Called when an approval request is resolved."""
         # For now we just log; you can extend this to trigger follow‑up work.
-        print(f"✅ Approval resolved: {request.id} -> {request.status}")
+        print(f"[APPROVAL] Resolved: {request.id} -> {request.status}")
 
     def _get_memory_stats(self) -> Dict[str, Any]:
         """Return basic memory statistics."""

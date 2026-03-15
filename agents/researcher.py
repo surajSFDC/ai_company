@@ -26,7 +26,7 @@ Output format:
 class ResearchAgent(BaseAgent):
     """Agent responsible for researching topics."""
 
-    def __init__(self, model_name: str = "gpt-4o", temperature: float = 0.5):
+    def __init__(self, model_name: str = "llama3.2", temperature: float = 0.5):
         super().__init__(
             name="Researcher",
             role="Research Analyst",
@@ -45,7 +45,7 @@ class ResearchAgent(BaseAgent):
         task = state.task
 
         if self.web_browser:
-            print("🔎 Conducting web research...")
+            print("[RESEARCH] Conducting web research...")
             web_results = self.web_browser.research(task)
             state.context["web_research"] = web_results
 

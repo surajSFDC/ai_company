@@ -31,7 +31,7 @@ Output format:
 class ReviewerAgent(BaseAgent):
     """Agent responsible for reviewing code."""
 
-    def __init__(self, model_name: str = "gpt-4o", temperature: float = 0.3):
+    def __init__(self, model_name: str = "llama3.2", temperature: float = 0.3):
         super().__init__(
             name="Reviewer",
             role="Code Reviewer",
