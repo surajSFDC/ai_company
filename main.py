@@ -25,7 +25,7 @@ def run_office() -> None:
 
     app = create_app(manager)
     print(f"\n{'='*60}")
-    print(f"🏢 AI Company Virtual Office")
+    print("AI Company Virtual Office")
     print(f"{'='*60}")
     print(f"Opening at: http://{args.host}:{args.port}")
     print(f"\nWatch your AI agents collaborate in real-time!")
